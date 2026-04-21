@@ -1,7 +1,6 @@
 #ifndef VECTOR_H_
 #define VECTOR_H_
 
-#include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -13,16 +12,28 @@ typedef struct
 } vecHead;
 
 void *vecAlloc(size_t elemSize);
-#define len(vec) ((vecHead *)(vec) - 1)->size
-#define push(vec, val)                                 \
-    do                                                 \
-    {                                                  \
-        (vec)[((vecHead *)(vec) - 1)->size++] = (val); \
+#define getHead(vec) ((vecHead *)(vec) - 1)
+#define len(vec) (getHead((vec))->size)
+#define push(vec, val)                         \
+    do                                         \
+    {                                          \
+        (vec)[getHead((vec))->size++] = (val); \
     } while (0)
 
-#define pop(vec) ((vec)[--((vecHead *)(vec) - 1)->size])
+#define isEmpty(vec) (getHead((vec))->size == 0)
+#define pop(vec)                                                        \
+    do                                                                  \
+    {                                                                   \
+        if (isEmpty((vec)))                                             \
+        {                                                               \
+            char *msg = "\nNo Elements in the Array..\nAccess Denied!"; \
+            fprintf(stderr, msg);                                       \
+            exit(EXIT_FAILURE);                                         \
+        }                                                               \
+        getHead((vec))->size--;                                         \
+    } while (0)
 
-#endif // Vector
+#define peek(vec, defaultVal) (isEmpty((vec)) ? (perror("Empty Array."), (defaultVal)) : (vec)[getHead((vec))->size - 1])
 
 #ifndef VECTOR_IMPLEMENTATION_
 
@@ -34,4 +45,7 @@ void *vecAlloc(size_t elemSize)
     head->capacity = CAP;
     return (char *)vector + sizeof(vecHead);
 }
-#endif // End of Vector File...
+
+#endif // VECTOR_IMPLEMENTATION_
+
+#endif // VECTOR_H_

@@ -3,20 +3,24 @@
 
 int main()
 {
-    char **stringArr = (char **)vecAlloc(sizeof(char *));
-    push(stringArr, "Hello!");
-    push(stringArr, "Vectors");
-
-    for (size_t i = 0; i < len(stringArr); i++)
+    int *nums = (int *)vecAlloc(sizeof(int));
+    for (int i = 0; i <= 25; i++)
     {
-        printf("%s ", stringArr[i]);
+        push(nums, i * i);
     }
 
-    char *s1 = pop(stringArr);
-    char *s2 = pop(stringArr);
-    char* s3 = pop(stringArr);
-    printf("%s, %s", s1, s2);
-    printf("%s", s3);
+    for (size_t i = 0; i < len(nums); i++)
+    {
+        printf("%d ", nums[i]);
+    }
+
+    pop(nums);
+    pop(nums);
+    int last = peek(nums, 0);
+    printf("\n%d", last);
+
     printf("\n");
     return 0;
 }
+
+//(getHead((vec))->size > 0 ? (vec)[(getHead((vec))->size) - 1] : (fprintf(stderr, "\nArray is Empty.."), exit(EXIT_FAILURE), 0))
