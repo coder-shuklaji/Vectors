@@ -1,26 +1,18 @@
-#define VECTOR_IMPLEMETATION_
 #include "vector.h"
+#define VECTOR_IMPLEMENTATION_
+
+typedef struct
+{
+    int id;
+    char *name;
+} Student;
 
 int main()
 {
-    int *nums = (int *)vecAlloc(sizeof(int));
-    for (int i = 0; i <= 25; i++)
-    {
-        push(nums, i * i);
-    }
-
-    for (size_t i = 0; i < len(nums); i++)
-    {
-        printf("%d ", nums[i]);
-    }
-
-    pop(nums);
-    pop(nums);
-    int last = peek(nums, 0);
-    printf("\n%d", last);
-
-    printf("\n");
+    Student *students = vecAlloc(sizeof(Student));
+    push(students, ((Student){1, "Aman"}));
+    push(students, ((Student){2, "Sara"}));
+    printf("Size: %d\n", len(students));
+    printf("Last: %s\n", peek(students, ((Student){0, "None"})).name);
     return 0;
 }
-
-//(getHead((vec))->size > 0 ? (vec)[(getHead((vec))->size) - 1] : (fprintf(stderr, "\nArray is Empty.."), exit(EXIT_FAILURE), 0))
