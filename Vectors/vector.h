@@ -11,7 +11,7 @@ typedef struct
     size_t capacity;
 } vecHead;
 
-// ---------------- Helper Memory Allocation Functions ----------------
+// ---------------- Memory Allocation Functions ----------------
 void *vecAlloc(size_t elemSize);
 void *vecReAlloc(void *vec, size_t elemSize);
 
@@ -57,6 +57,9 @@ void *vecReAlloc(void *vec, size_t elemSize);
 // e.g. if typeOf(vec) == struct {...} call peek(vec, {...})
 #define peek(vec, defaultVal) (isEmpty((vec)) ? (perror("Empty Array."), (defaultVal)) : (vec)[getHead((vec))->size - 1])
 
+// Function to Free the Allocated Memory Space
+void freeVec(void *vec);
+
 #ifndef VECTOR_IMPLEMENTATION_
 
 void *vecAlloc(size_t elemSize)
@@ -79,6 +82,11 @@ void *vecReAlloc(void *vec, size_t elemSize)
     }
     temp->capacity = newCapacity;
     return (char *)temp + sizeof(vecHead);
+}
+
+void freeVec(void *vec)
+{
+    free(getHead(vec));
 }
 
 #endif // VECTOR_IMPLEMENTATION_

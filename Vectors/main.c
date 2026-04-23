@@ -14,5 +14,7 @@ int main()
     push(students, ((Student){2, "Sara"}));
     printf("Size: %d\n", len(students));
     printf("Last: %s\n", peek(students, ((Student){0, "None"})).name);
+
+    freeVec(students);
     return 0;
 }
